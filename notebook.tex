@@ -1,0 +1,1012 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{circuits\_NN-simple}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{torch}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn} \PY{k}{as} \PY{n+nn}{nn}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{optim} \PY{k}{as} \PY{n+nn}{optim}
+        \PY{k+kn}{from} \PY{n+nn}{vogn} \PY{k}{import} \PY{n}{VOGN}
+        \PY{k+kn}{from} \PY{n+nn}{models} \PY{k}{import} \PY{n}{SimpleConvNet}
+        \PY{k+kn}{from} \PY{n+nn}{datasets} \PY{k}{import} \PY{n}{Dataset}
+        \PY{k+kn}{from} \PY{n+nn}{utils} \PY{k}{import} \PY{n}{train\PYZus{}model}
+        \PY{k+kn}{from} \PY{n+nn}{utils} \PY{k}{import} \PY{n}{inference}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn}\PY{n+nn}{.}\PY{n+nn}{functional} \PY{k}{as} \PY{n+nn}{F}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{p}{)}
+        \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{utils}\PY{n+nn}{.}\PY{n+nn}{data}\PY{n+nn}{.}\PY{n+nn}{dataloader} \PY{k}{import} \PY{n}{DataLoader}
+\end{Verbatim}
+
+
+    Note : attention aux colums de file\_A et file, columns en plus
+etc\ldots{}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} Test wether GPUs are available}
+        \PY{n}{use\PYZus{}cuda} \PY{o}{=}  \PY{n}{torch}\PY{o}{.}\PY{n}{cuda}\PY{o}{.}\PY{n}{is\PYZus{}available}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Using Cuda: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{n}{use\PYZus{}cuda}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Set Random Seed}
+        \PY{n}{torch}\PY{o}{.}\PY{n}{manual\PYZus{}seed}\PY{p}{(}\PY{l+m+mi}{42}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using Cuda: True
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:} <torch.\_C.Generator at 0x7fec5f2b2b30>
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{class} \PY{n+nc}{csvDataset}\PY{p}{(}\PY{n}{Dataset}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Face Landmarks dataset.\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{csv\PYZus{}file}\PY{p}{,} \PY{n}{transform}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+                \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{        Args:}
+        \PY{l+s+sd}{            csv\PYZus{}file (string): Path to the csv file with annotations.}
+        \PY{l+s+sd}{            root\PYZus{}dir (string): Directory with all the images.}
+        \PY{l+s+sd}{            transform (callable, optional): Optional transform to be applied}
+        \PY{l+s+sd}{                on a sample.}
+        \PY{l+s+sd}{        \PYZdq{}\PYZdq{}\PYZdq{}}
+                
+                \PY{n}{file} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{csv\PYZus{}file}\PY{p}{)}
+                
+                
+                \PY{n}{a}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pass/Fail}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{file}\PY{p}{[}\PY{n}{a}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fail}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}
+                
+                \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{file\PYZus{}A}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{:}
+                    \PY{k}{if} \PY{n}{i} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pass/Fail}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                        \PY{n}{a}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+                        
+                \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{file}\PY{p}{[}\PY{n}{a}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}       
+                \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{:}
+                    \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                        
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{data} \PY{o}{=} \PY{n}{data}
+                 
+                \PY{c+c1}{\PYZsh{}self.train\PYZus{}set = TensorDataset()}
+                \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transform} \PY{o}{=} \PY{n}{transform}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}len\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                \PY{k}{return} \PY{n+nb}{len}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{data}\PY{p}{)}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}getitem\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{idx}\PY{p}{)}\PY{p}{:}
+        
+                \PY{n}{data} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{data}\PY{p}{[}\PY{n}{idx}\PY{p}{]}
+                \PY{n}{label} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{label}\PY{p}{[}\PY{n}{idx}\PY{p}{]}
+                \PY{n}{sample} \PY{o}{=} \PY{p}{\PYZob{}} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{data}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{label}\PY{p}{\PYZcb{}}
+        
+                \PY{k}{if} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transform}\PY{p}{:}
+                    \PY{n}{sample} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{sample}\PY{p}{)}
+        
+                \PY{k}{return} \PY{n}{sample}
+            
+        \PY{k}{class} \PY{n+nc}{ToTensor}\PY{p}{(}\PY{n+nb}{object}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Convert ndarrays in sample to Tensors.\PYZdq{}\PYZdq{}\PYZdq{}}
+        
+            \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}call\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{sample}\PY{p}{)}\PY{p}{:}
+                
+                \PY{n}{data}\PY{p}{,} \PY{n}{label}  \PY{o}{=} \PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{n}{sample}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                
+                
+                \PY{k}{return} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{torch}\PY{o}{.}\PY{n}{from\PYZus{}numpy}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{torch}\PY{o}{.}\PY{n}{from\PYZus{}numpy}\PY{p}{(}\PY{n}{label}\PY{p}{)}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}\PY{p}{\PYZcb{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{k}{class} \PY{n+nc}{SimpleConvNet}\PY{p}{(}\PY{n}{nn}\PY{o}{.}\PY{n}{Module}\PY{p}{)}\PY{p}{:}
+             \PY{k}{def} \PY{n+nf}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{super}\PY{p}{(}\PY{n+nb}{type}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{)}\PY{p}{,} \PY{n+nb+bp}{self}\PY{p}{)}\PY{o}{.}\PY{n+nf+fm}{\PYZus{}\PYZus{}init\PYZus{}\PYZus{}}\PY{p}{(}\PY{p}{)}
+                 
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layer1} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{64}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layer2} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{l+m+mi}{64}\PY{p}{,} \PY{l+m+mi}{256}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layer3} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{,} \PY{l+m+mi}{256}\PY{p}{)}
+                 \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layer4} \PY{o}{=} \PY{n}{nn}\PY{o}{.}\PY{n}{Linear}\PY{p}{(}\PY{l+m+mi}{256}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                 
+                 
+             \PY{k}{def} \PY{n+nf}{forward}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layer1}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layer2}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{x} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{relu}\PY{p}{(}\PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layer3}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{out} \PY{o}{=} \PY{n+nb+bp}{self}\PY{o}{.}\PY{n}{layer4}\PY{p}{(}\PY{n}{x}\PY{p}{)}
+                 \PY{k}{return} \PY{n}{out}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n}{file\PYZus{}dataset} \PY{o}{=} \PY{n}{csvDataset}\PY{p}{(}\PY{n}{csv\PYZus{}file}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circuit\PYZhy{}design/opAmp\PYZus{}280nm\PYZus{}GF55\PYZus{}Mod\PYZus{}30P.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{transform}\PY{o}{=} \PY{n}{ToTensor}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{file} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circuit\PYZhy{}design/opAmp\PYZus{}280nm\PYZus{}GF55\PYZus{}Mod\PYZus{}30P.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 
+                 
+         \PY{n}{a}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pass/Fail}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 
+         \PY{n}{label} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{file}\PY{p}{[}\PY{n}{a}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{o}{==}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fail}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mf}{1.}\PY{p}{)}\PY{o}{+}\PY{l+m+mi}{1}
+                 
+         \PY{n}{a} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                 
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{list}\PY{p}{(}\PY{n}{file}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{i} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pass/Fail}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+                 \PY{n}{a}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+                         
+         \PY{n}{data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{file}\PY{p}{[}\PY{n}{a}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{)}   
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{:}
+             \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{=}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+         \PY{n}{data}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} array([[-1.        , -1.22474487, -1.        , {\ldots},  1.41675504,
+                  0.        , 30.93171296],
+                [-1.        , -1.22474487, -1.        , {\ldots},  1.04780248,
+                  0.        ,         nan],
+                [-1.        , -1.22474487, -1.        , {\ldots},  1.1953835 ,
+                  0.        ,         nan],
+                {\ldots},
+                [ 1.        ,  1.22474487,  1.        , {\ldots}, -0.77166073,
+                  0.        ,         nan],
+                [ 1.        ,  1.22474487,  1.        , {\ldots}, -0.74952358,
+                  0.        ,         nan],
+                [ 1.        ,  1.22474487,  1.        , {\ldots}, -0.78905421,
+                  0.        ,         nan]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{file\PYZus{}A} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{circuit\PYZhy{}design/opAmp\PYZus{}280nm\PYZus{}GF55.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{n}{file}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} Index(['VDD', 'Ib', 'Lg1', 'Lg2', 'Lrf', 'Wcf', 'Wg1', 'Wg2', 'temperature',
+                'Pass/Fail', 'ACM\_G', 'SR', 'CMRR', 'NOISE', 'PSRR', 'PhaseMargin\_PM',
+                'BandWidth', 'Pass/Fail.1', 'Percentage'],
+               dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{n}{file\PYZus{}A}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}29}]:} Index(['VDD', 'Ib', 'Lg1', 'Lg2', 'Lrf', 'Wcf', 'Wg1', 'Wg2', 'temperature',
+                'Pass/Fail', 'ACM\_G', 'SR', 'CMRR', 'NOISE', 'PSRR', 'PhaseMargin\_PM',
+                'BandWidth'],
+               dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}dataset\PYZus{}loader = torch.utils.data.DataLoader(file\PYZus{}dataset,batch\PYZus{}size=43, shuffle=True)}
+         \PY{n}{dataset\PYZus{}loader} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{DataLoader}\PY{p}{(}\PY{n}{file\PYZus{}dataset}\PY{p}{,}
+                                                      \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{k}{def} \PY{n+nf}{train\PYZus{}model\PYZus{}bb}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{dataloaders}\PY{p}{,} \PY{n}{criterion}\PY{p}{,} \PY{n}{optimizer}\PY{p}{,} \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{25}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+         \PY{l+s+sd}{    Performs Training and Validation on test set on the given model using the specified optimizer}
+         \PY{l+s+sd}{    :param model: (nn.Module) Model to be trained}
+         \PY{l+s+sd}{    :param dataloaders: (list) train and test dataloaders}
+         \PY{l+s+sd}{    :param criterion: Loss Function}
+         \PY{l+s+sd}{    :param optimizer: Optimizer to be used for training}
+         \PY{l+s+sd}{    :param num\PYZus{}epochs: Number of epochs to train the model}
+         \PY{l+s+sd}{    :return: trained model, test and train metric history}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{train\PYZus{}loss\PYZus{}history} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{train\PYZus{}accuracy\PYZus{}history} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{test\PYZus{}accuracy\PYZus{}history} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{test\PYZus{}loss\PYZus{}history} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+             \PY{n}{trainloader}\PY{p}{,} \PY{n}{testloader} \PY{o}{=} \PY{n}{dataloaders}
+         
+             \PY{k}{for} \PY{n}{epoch} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num\PYZus{}epochs}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{model}\PY{o}{.}\PY{n}{train}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch[}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{]:}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{n}{epoch}\PY{p}{)}
+                 \PY{n}{running\PYZus{}train\PYZus{}loss} \PY{o}{=} \PY{l+m+mf}{0.}
+                 \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{0}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{(}\PY{n}{trainloader}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{a}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                     \PY{n}{inputs} \PY{o}{=} \PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                     \PY{n}{labels} \PY{o}{=} \PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                     \PY{k}{if} \PY{n}{use\PYZus{}cuda}\PY{p}{:}
+                         \PY{n}{inputs}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{inputs}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{labels}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+                     \PY{k}{if} \PY{n+nb}{isinstance}\PY{p}{(}\PY{n}{optimizer}\PY{p}{,} \PY{n}{VOGN}\PY{p}{)}\PY{p}{:}
+                         \PY{k}{def} \PY{n+nf}{closure}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                             \PY{n}{optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+                             \PY{n}{logits} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{forward}\PY{p}{(}\PY{n}{inputs}\PY{p}{)}
+                             \PY{n}{loss} \PY{o}{=} \PY{n}{criterion}\PY{p}{(}\PY{n}{logits}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+                             \PY{k}{return} \PY{n}{loss}
+                     \PY{k}{else}\PY{p}{:}
+                         \PY{k}{def} \PY{n+nf}{closure}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                             \PY{n}{optimizer}\PY{o}{.}\PY{n}{zero\PYZus{}grad}\PY{p}{(}\PY{p}{)}
+                             \PY{n}{logits} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{forward}\PY{p}{(}\PY{n}{inputs}\PY{p}{)}
+                             \PY{n}{loss} \PY{o}{=} \PY{n}{criterion}\PY{p}{(}\PY{n}{logits}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+                             \PY{n}{loss}\PY{o}{.}\PY{n}{backward}\PY{p}{(}\PY{p}{)}
+                             \PY{k}{return} \PY{n}{loss}
+                     \PY{n}{loss} \PY{o}{=} \PY{n}{optimizer}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n}{closure}\PY{p}{)}
+                     \PY{n}{running\PYZus{}train\PYZus{}loss} \PY{o}{+}\PY{o}{=} \PY{n}{loss}\PY{o}{.}\PY{n}{detach}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}
+         
+                     \PY{c+c1}{\PYZsh{} Print Training Progress}
+                     \PY{k}{if} \PY{n}{a}\PY{o}{\PYZpc{}}\PY{k}{500} == 1:
+                         \PY{n}{train\PYZus{}accuracy} \PY{o}{=} \PY{n}{accuracy\PYZus{}bb}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{trainloader}\PY{p}{)}
+                         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Iteration[}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{]: Train Loss: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{   Train Accuracy: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{a}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{running\PYZus{}train\PYZus{}loss}\PY{o}{/}\PY{n}{a}\PY{p}{,} \PY{n}{train\PYZus{}accuracy}\PY{p}{)}\PY{p}{)}
+         
+                 \PY{n}{train\PYZus{}accuracy}\PY{p}{,} \PY{n}{train\PYZus{}loss} \PY{o}{=} \PY{n}{accuracy\PYZus{}bb}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{trainloader}\PY{p}{,} \PY{n}{criterion}\PY{p}{)}
+                 \PY{n}{train\PYZus{}accuracy\PYZus{}history}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}accuracy}\PY{p}{)}
+                 \PY{n}{train\PYZus{}loss\PYZus{}history}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{train\PYZus{}loss}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}\PYZsh{} Epoch[}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{], Train Loss: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{   \PYZam{}   Train Accuracy: }\PY{l+s+si}{\PYZpc{}f}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{epoch}\PY{p}{,} \PY{n}{train\PYZus{}loss}\PY{p}{,} \PY{n}{train\PYZus{}accuracy}\PY{p}{)}\PY{p}{)}
+             \PY{k}{return} \PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}loss\PYZus{}history}\PY{p}{,} \PY{n}{train\PYZus{}accuracy\PYZus{}history}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{k}{def} \PY{n+nf}{accuracy\PYZus{}bb}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{dataloader}\PY{p}{,} \PY{n}{criterion}\PY{o}{=}\PY{k+kc}{None}\PY{p}{)}\PY{p}{:}
+             \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{} Computes the model\PYZsq{}s classification accuracy on the train dataset}
+         \PY{l+s+sd}{        Computes classification accuracy and loss(optional) on the test dataset}
+         \PY{l+s+sd}{        The model should return logits}
+         \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+             \PY{n}{model}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}
+             \PY{k}{with} \PY{n}{torch}\PY{o}{.}\PY{n}{no\PYZus{}grad}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{correct} \PY{o}{=} \PY{l+m+mf}{0.}
+                 \PY{n}{running\PYZus{}loss} \PY{o}{=} \PY{l+m+mf}{0.}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{(}\PY{n}{dataloader}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{inputs} \PY{o}{=} \PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                     \PY{n}{labels} \PY{o}{=} \PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                     \PY{k}{if} \PY{n}{use\PYZus{}cuda}\PY{p}{:}
+                         \PY{n}{inputs}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{inputs}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{labels}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{outputs} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{inputs}\PY{p}{)}
+                     \PY{k}{if} \PY{n}{criterion} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                         \PY{n}{loss} \PY{o}{=} \PY{n}{criterion}\PY{p}{(}\PY{n}{outputs}\PY{p}{,} \PY{n}{labels}\PY{p}{)}
+                         \PY{n}{running\PYZus{}loss} \PY{o}{+}\PY{o}{=} \PY{n}{loss}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{pred} \PY{o}{=} \PY{p}{(}\PY{n}{outputs}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}
+                     \PY{n}{correct} \PY{o}{+}\PY{o}{=} \PY{p}{(}\PY{n}{pred}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{==} \PY{n}{labels}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{accuracy} \PY{o}{=} \PY{n}{correct} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dataloader}\PY{o}{.}\PY{n}{dataset}\PY{p}{)}
+                 \PY{k}{if} \PY{n}{criterion} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                     \PY{n}{running\PYZus{}loss} \PY{o}{=} \PY{n}{running\PYZus{}loss} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{dataloader}\PY{p}{)}
+                     \PY{k}{return} \PY{n}{accuracy}\PY{p}{,} \PY{n}{running\PYZus{}loss}
+             \PY{k}{return} \PY{n}{accuracy}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{model} \PY{o}{=} \PY{n}{SimpleConvNet}\PY{p}{(}\PY{p}{)}
+         \PY{k}{if} \PY{n}{use\PYZus{}cuda}\PY{p}{:}
+             \PY{n}{model} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+         \PY{n}{criterion} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{binary\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits}
+         \PY{n}{optimizer} \PY{o}{=} \PY{n}{VOGN}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}set\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{6912}\PY{p}{,} \PY{n}{prec\PYZus{}init}\PY{o}{=}\PY{l+m+mf}{1e2}\PY{p}{,} \PY{n}{num\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{optimizer\PYZus{}bb} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}loss}\PY{p}{,} \PY{n}{train\PYZus{}accuracy} \PY{o}{=} \PY{n}{train\PYZus{}model\PYZus{}bb}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{p}{[}\PY{n}{dataset\PYZus{}loader}\PY{p}{,} \PY{n}{dataset\PYZus{}loader}\PY{p}{]}\PY{p}{,} \PY{n}{criterion}\PY{p}{,}
+         \PY{n}{optimizer\PYZus{}bb}\PY{p}{,} \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch[0]:
+Iteration[2]: Train Loss: 0.618195   Train Accuracy: 0.690683 
+Iteration[502]: Train Loss: 0.429260   Train Accuracy: 0.850984 
+Iteration[1002]: Train Loss: 0.361642   Train Accuracy: 0.862558 
+Iteration[1502]: Train Loss: 0.328902   Train Accuracy: 0.885272 
+Iteration[2002]: Train Loss: 0.313633   Train Accuracy: 0.900608 
+Iteration[2502]: Train Loss: 0.293588   Train Accuracy: 0.891927 
+Iteration[3002]: Train Loss: 0.281464   Train Accuracy: 0.931279 
+Iteration[3502]: Train Loss: 0.272258   Train Accuracy: 0.932726 
+Iteration[4002]: Train Loss: 0.259963   Train Accuracy: 0.927807 
+Iteration[4502]: Train Loss: 0.251183   Train Accuracy: 0.940394 
+Iteration[5002]: Train Loss: 0.240842   Train Accuracy: 0.939091 
+Iteration[5502]: Train Loss: 0.230948   Train Accuracy: 0.958623 
+Iteration[6002]: Train Loss: 0.223748   Train Accuracy: 0.944444 
+Iteration[6502]: Train Loss: 0.215162   Train Accuracy: 0.964265 
+\#\# Epoch[0], Train Loss: 0.106087   \&   Train Accuracy: 0.954282
+Epoch[1]:
+Iteration[2]: Train Loss: 0.218947   Train Accuracy: 0.953848 
+Iteration[502]: Train Loss: 0.111183   Train Accuracy: 0.954716 
+Iteration[1002]: Train Loss: 0.108181   Train Accuracy: 0.955584 
+Iteration[1502]: Train Loss: 0.111001   Train Accuracy: 0.949074 
+Iteration[2002]: Train Loss: 0.113315   Train Accuracy: 0.965133 
+Iteration[2502]: Train Loss: 0.118641   Train Accuracy: 0.960503 
+Iteration[3002]: Train Loss: 0.116676   Train Accuracy: 0.972222 
+Iteration[3502]: Train Loss: 0.113578   Train Accuracy: 0.953559 
+Iteration[4002]: Train Loss: 0.113688   Train Accuracy: 0.964554 
+Iteration[4502]: Train Loss: 0.112683   Train Accuracy: 0.976852 
+Iteration[5002]: Train Loss: 0.110937   Train Accuracy: 0.976273 
+Iteration[5502]: Train Loss: 0.107459   Train Accuracy: 0.979456 
+Iteration[6002]: Train Loss: 0.106260   Train Accuracy: 0.971499 
+Iteration[6502]: Train Loss: 0.104220   Train Accuracy: 0.975839 
+\#\# Epoch[1], Train Loss: 0.062452   \&   Train Accuracy: 0.971933
+Epoch[2]:
+Iteration[2]: Train Loss: 0.037794   Train Accuracy: 0.971644 
+Iteration[502]: Train Loss: 0.085752   Train Accuracy: 0.968171 
+Iteration[1002]: Train Loss: 0.079046   Train Accuracy: 0.969618 
+Iteration[1502]: Train Loss: 0.078195   Train Accuracy: 0.966146 
+Iteration[2002]: Train Loss: 0.080479   Train Accuracy: 0.976562 
+Iteration[2502]: Train Loss: 0.081271   Train Accuracy: 0.973958 
+Iteration[3002]: Train Loss: 0.085295   Train Accuracy: 0.970486 
+Iteration[3502]: Train Loss: 0.082866   Train Accuracy: 0.970631 
+Iteration[4002]: Train Loss: 0.079516   Train Accuracy: 0.968895 
+Iteration[4502]: Train Loss: 0.077792   Train Accuracy: 0.979456 
+Iteration[5002]: Train Loss: 0.078479   Train Accuracy: 0.985243 
+Iteration[5502]: Train Loss: 0.077848   Train Accuracy: 0.970775 
+Iteration[6002]: Train Loss: 0.079171   Train Accuracy: 0.982494 
+Iteration[6502]: Train Loss: 0.077580   Train Accuracy: 0.971209 
+\#\# Epoch[2], Train Loss: 0.068135   \&   Train Accuracy: 0.974537
+Epoch[3]:
+Iteration[2]: Train Loss: 0.000000   Train Accuracy: 0.974537 
+Iteration[502]: Train Loss: 0.086286   Train Accuracy: 0.982494 
+Iteration[1002]: Train Loss: 0.057650   Train Accuracy: 0.983218 
+Iteration[1502]: Train Loss: 0.072677   Train Accuracy: 0.978588 
+Iteration[2002]: Train Loss: 0.064500   Train Accuracy: 0.982350 
+Iteration[2502]: Train Loss: 0.064913   Train Accuracy: 0.980613 
+Iteration[3002]: Train Loss: 0.065360   Train Accuracy: 0.975405 
+Iteration[3502]: Train Loss: 0.065816   Train Accuracy: 0.978443 
+Iteration[4002]: Train Loss: 0.062140   Train Accuracy: 0.986111 
+Iteration[4502]: Train Loss: 0.061946   Train Accuracy: 0.981047 
+Iteration[5002]: Train Loss: 0.062836   Train Accuracy: 0.974682 
+Iteration[5502]: Train Loss: 0.066188   Train Accuracy: 0.980758 
+Iteration[6002]: Train Loss: 0.064554   Train Accuracy: 0.989149 
+Iteration[6502]: Train Loss: 0.063322   Train Accuracy: 0.983941 
+\#\# Epoch[3], Train Loss: 0.029302   \&   Train Accuracy: 0.988571
+Epoch[4]:
+Iteration[2]: Train Loss: 0.000000   Train Accuracy: 0.988281 
+Iteration[502]: Train Loss: 0.066844   Train Accuracy: 0.982060 
+Iteration[1002]: Train Loss: 0.066132   Train Accuracy: 0.984086 
+Iteration[1502]: Train Loss: 0.058975   Train Accuracy: 0.985677 
+Iteration[2002]: Train Loss: 0.054353   Train Accuracy: 0.987413 
+Iteration[2502]: Train Loss: 0.063853   Train Accuracy: 0.981192 
+Iteration[3002]: Train Loss: 0.058696   Train Accuracy: 0.985243 
+Iteration[3502]: Train Loss: 0.054958   Train Accuracy: 0.982639 
+Iteration[4002]: Train Loss: 0.057504   Train Accuracy: 0.979601 
+Iteration[4502]: Train Loss: 0.056996   Train Accuracy: 0.971933 
+Iteration[5002]: Train Loss: 0.057338   Train Accuracy: 0.977286 
+Iteration[5502]: Train Loss: 0.059209   Train Accuracy: 0.978299 
+Iteration[6002]: Train Loss: 0.059216   Train Accuracy: 0.981481 
+Iteration[6502]: Train Loss: 0.060306   Train Accuracy: 0.982350 
+\#\# Epoch[4], Train Loss: 0.044236   \&   Train Accuracy: 0.982784
+Epoch[5]:
+Iteration[2]: Train Loss: 0.000000   Train Accuracy: 0.982784 
+Iteration[502]: Train Loss: 0.059987   Train Accuracy: 0.988715 
+Iteration[1002]: Train Loss: 0.055151   Train Accuracy: 0.979456 
+Iteration[1502]: Train Loss: 0.051863   Train Accuracy: 0.979311 
+Iteration[2002]: Train Loss: 0.055211   Train Accuracy: 0.990596 
+Iteration[2502]: Train Loss: 0.052092   Train Accuracy: 0.989583 
+Iteration[3002]: Train Loss: 0.049853   Train Accuracy: 0.976562 
+Iteration[3502]: Train Loss: 0.051222   Train Accuracy: 0.975116 
+Iteration[4002]: Train Loss: 0.052789   Train Accuracy: 0.988426 
+Iteration[4502]: Train Loss: 0.054382   Train Accuracy: 0.977286 
+Iteration[5002]: Train Loss: 0.053466   Train Accuracy: 0.989149 
+Iteration[5502]: Train Loss: 0.052825   Train Accuracy: 0.984520 
+Iteration[6002]: Train Loss: 0.052889   Train Accuracy: 0.975260 
+Iteration[6502]: Train Loss: 0.052675   Train Accuracy: 0.989873 
+\#\# Epoch[5], Train Loss: 0.040999   \&   Train Accuracy: 0.983796
+Epoch[6]:
+Iteration[2]: Train Loss: 0.000000   Train Accuracy: 0.983796 
+Iteration[502]: Train Loss: 0.022467   Train Accuracy: 0.989439 
+Iteration[1002]: Train Loss: 0.027663   Train Accuracy: 0.989149 
+Iteration[1502]: Train Loss: 0.043478   Train Accuracy: 0.981047 
+Iteration[2002]: Train Loss: 0.049405   Train Accuracy: 0.983362 
+Iteration[2502]: Train Loss: 0.046659   Train Accuracy: 0.973814 
+Iteration[3002]: Train Loss: 0.048237   Train Accuracy: 0.981192 
+Iteration[3502]: Train Loss: 0.047314   Train Accuracy: 0.980613 
+Iteration[4002]: Train Loss: 0.044794   Train Accuracy: 0.989583 
+Iteration[4502]: Train Loss: 0.043547   Train Accuracy: 0.968316 
+Iteration[5002]: Train Loss: 0.044017   Train Accuracy: 0.977431 
+Iteration[5502]: Train Loss: 0.043951   Train Accuracy: 0.979745 
+Iteration[6002]: Train Loss: 0.045926   Train Accuracy: 0.989728 
+Iteration[6502]: Train Loss: 0.045955   Train Accuracy: 0.985243 
+\#\# Epoch[6], Train Loss: 0.142577   \&   Train Accuracy: 0.973090
+Epoch[7]:
+Iteration[2]: Train Loss: 0.000000   Train Accuracy: 0.973090 
+Iteration[502]: Train Loss: 0.058982   Train Accuracy: 0.973814 
+Iteration[1002]: Train Loss: 0.051399   Train Accuracy: 0.987703 
+Iteration[1502]: Train Loss: 0.045490   Train Accuracy: 0.969473 
+Iteration[2002]: Train Loss: 0.048474   Train Accuracy: 0.983218 
+Iteration[2502]: Train Loss: 0.046908   Train Accuracy: 0.989149 
+Iteration[3002]: Train Loss: 0.050201   Train Accuracy: 0.988860 
+Iteration[3502]: Train Loss: 0.050531   Train Accuracy: 0.980035 
+Iteration[4002]: Train Loss: 0.049280   Train Accuracy: 0.988281 
+Iteration[4502]: Train Loss: 0.049592   Train Accuracy: 0.982639 
+Iteration[5002]: Train Loss: 0.049057   Train Accuracy: 0.985966 
+Iteration[5502]: Train Loss: 0.048247   Train Accuracy: 0.991753 
+Iteration[6002]: Train Loss: 0.049394   Train Accuracy: 0.979456 
+Iteration[6502]: Train Loss: 0.048547   Train Accuracy: 0.990596 
+\#\# Epoch[7], Train Loss: 0.037203   \&   Train Accuracy: 0.988426
+Epoch[8]:
+Iteration[2]: Train Loss: 0.005213   Train Accuracy: 0.988426 
+Iteration[502]: Train Loss: 0.058908   Train Accuracy: 0.984375 
+Iteration[1002]: Train Loss: 0.047094   Train Accuracy: 0.992766 
+Iteration[1502]: Train Loss: 0.045419   Train Accuracy: 0.990885 
+Iteration[2002]: Train Loss: 0.041667   Train Accuracy: 0.983218 
+Iteration[2502]: Train Loss: 0.040505   Train Accuracy: 0.986979 
+Iteration[3002]: Train Loss: 0.047357   Train Accuracy: 0.989583 
+Iteration[3502]: Train Loss: 0.045935   Train Accuracy: 0.993634 
+Iteration[4002]: Train Loss: 0.044138   Train Accuracy: 0.993345 
+Iteration[4502]: Train Loss: 0.040948   Train Accuracy: 0.990162 
+Iteration[5002]: Train Loss: 0.042103   Train Accuracy: 0.987558 
+Iteration[5502]: Train Loss: 0.042507   Train Accuracy: 0.989728 
+Iteration[6002]: Train Loss: 0.042036   Train Accuracy: 0.989149 
+Iteration[6502]: Train Loss: 0.043347   Train Accuracy: 0.983073 
+\#\# Epoch[8], Train Loss: 0.050785   \&   Train Accuracy: 0.984086
+Epoch[9]:
+Iteration[2]: Train Loss: 0.000000   Train Accuracy: 0.984086 
+Iteration[502]: Train Loss: 0.046297   Train Accuracy: 0.987269 
+Iteration[1002]: Train Loss: 0.040304   Train Accuracy: 0.981047 
+Iteration[1502]: Train Loss: 0.039975   Train Accuracy: 0.989439 
+Iteration[2002]: Train Loss: 0.039945   Train Accuracy: 0.990162 
+Iteration[2502]: Train Loss: 0.036840   Train Accuracy: 0.987847 
+Iteration[3002]: Train Loss: 0.037496   Train Accuracy: 0.980179 
+Iteration[3502]: Train Loss: 0.041625   Train Accuracy: 0.978733 
+Iteration[4002]: Train Loss: 0.040643   Train Accuracy: 0.977286 
+Iteration[4502]: Train Loss: 0.039642   Train Accuracy: 0.985532 
+Iteration[5002]: Train Loss: 0.039314   Train Accuracy: 0.986545 
+Iteration[5502]: Train Loss: 0.038489   Train Accuracy: 0.989728 
+Iteration[6002]: Train Loss: 0.036861   Train Accuracy: 0.988860 
+Iteration[6502]: Train Loss: 0.036585   Train Accuracy: 0.987847 
+\#\# Epoch[9], Train Loss: 0.028409   \&   Train Accuracy: 0.991175
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{n}{model} \PY{o}{=} \PY{n}{SimpleConvNet}\PY{p}{(}\PY{p}{)}
+         \PY{k}{if} \PY{n}{use\PYZus{}cuda}\PY{p}{:}
+             \PY{n}{model} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{float}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+         \PY{n}{criterion} \PY{o}{=} \PY{n}{F}\PY{o}{.}\PY{n}{binary\PYZus{}cross\PYZus{}entropy\PYZus{}with\PYZus{}logits}
+         \PY{n}{optimizer} \PY{o}{=} \PY{n}{VOGN}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}set\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{6912}\PY{p}{,} \PY{n}{prec\PYZus{}init}\PY{o}{=}\PY{l+m+mf}{1e2}\PY{p}{,} \PY{n}{num\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{optimizer\PYZus{}bb} \PY{o}{=} \PY{n}{optim}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{parameters}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}36}]:} \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{model}\PY{p}{,} \PY{n}{train\PYZus{}loss}\PY{p}{,} \PY{n}{train\PYZus{}accuracy} \PY{o}{=} \PY{n}{train\PYZus{}model\PYZus{}bb}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{p}{[}\PY{n}{dataset\PYZus{}loader}\PY{p}{,} \PY{n}{dataset\PYZus{}loader}\PY{p}{]}\PY{p}{,} \PY{n}{criterion}\PY{p}{,}
+         \PY{n}{optimizer}\PY{p}{,} \PY{n}{num\PYZus{}epochs}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         
+         \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{end} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Epoch[0]:
+Iteration[2]: Train Loss: 0.848696   Train Accuracy: 0.309317 
+Iteration[502]: Train Loss: 0.593379   Train Accuracy: 0.740162 
+Iteration[1002]: Train Loss: 0.549415   Train Accuracy: 0.751881 
+Iteration[1502]: Train Loss: 0.539353   Train Accuracy: 0.828125 
+Iteration[2002]: Train Loss: 0.545150   Train Accuracy: 0.808594 
+Iteration[2502]: Train Loss: 1.227444   Train Accuracy: 0.681134 
+Iteration[3002]: Train Loss: 1.221182   Train Accuracy: 0.690104 
+Iteration[3502]: Train Loss: 1.291220   Train Accuracy: 0.690683 
+Iteration[4002]: Train Loss: 1.249052   Train Accuracy: 0.690683 
+Iteration[4502]: Train Loss: 1.217457   Train Accuracy: 0.690683 
+Iteration[5002]: Train Loss: 1.264316   Train Accuracy: 0.688657 
+Iteration[5502]: Train Loss: 1.247096   Train Accuracy: 0.690683 
+Iteration[6002]: Train Loss: 1.265742   Train Accuracy: 0.690683 
+Iteration[6502]: Train Loss: 1.304199   Train Accuracy: 0.690683 
+\#\# Epoch[0], Train Loss: 0.489695   \&   Train Accuracy: 0.690683
+Epoch[1]:
+Iteration[2]: Train Loss: 0.643369   Train Accuracy: 0.690683 
+Iteration[502]: Train Loss: 0.701747   Train Accuracy: 0.690683 
+Iteration[1002]: Train Loss: 1.008066   Train Accuracy: 0.682870 
+Iteration[1502]: Train Loss: 1.456944   Train Accuracy: 0.736256 
+Iteration[2002]: Train Loss: 2.996025   Train Accuracy: 0.690104 
+Iteration[2502]: Train Loss: 2.556183   Train Accuracy: 0.700087 
+Iteration[3002]: Train Loss: 2.290448   Train Accuracy: 0.783854 
+Iteration[3502]: Train Loss: 2.123792   Train Accuracy: 0.781684 
+Iteration[4002]: Train Loss: 1.985206   Train Accuracy: 0.783275 
+Iteration[4502]: Train Loss: 1.851421   Train Accuracy: 0.814381 
+Iteration[5002]: Train Loss: 1.729528   Train Accuracy: 0.852141 
+Iteration[5502]: Train Loss: 1.607201   Train Accuracy: 0.859086 
+Iteration[6002]: Train Loss: 1.628985   Train Accuracy: 0.822193 
+Iteration[6502]: Train Loss: 1.536832   Train Accuracy: 0.860822 
+\#\# Epoch[1], Train Loss: 0.363242   \&   Train Accuracy: 0.814959
+Epoch[2]:
+Iteration[2]: Train Loss: 0.126163   Train Accuracy: 0.816696 
+Iteration[502]: Train Loss: 0.455162   Train Accuracy: 0.727431 
+Iteration[1002]: Train Loss: 0.471267   Train Accuracy: 0.831019 
+Iteration[1502]: Train Loss: 0.581053   Train Accuracy: 0.868345 
+Iteration[2002]: Train Loss: 0.526351   Train Accuracy: 0.864005 
+Iteration[2502]: Train Loss: 0.589138   Train Accuracy: 0.890914 
+Iteration[3002]: Train Loss: 0.556321   Train Accuracy: 0.899306 
+Iteration[3502]: Train Loss: 0.549739   Train Accuracy: 0.906973 
+Iteration[4002]: Train Loss: 0.850834   Train Accuracy: 0.893374 
+Iteration[4502]: Train Loss: 0.788905   Train Accuracy: 0.902344 
+Iteration[5002]: Train Loss: 1.168635   Train Accuracy: 0.887008 
+Iteration[5502]: Train Loss: 1.090991   Train Accuracy: 0.895544 
+Iteration[6002]: Train Loss: 1.027843   Train Accuracy: 0.913628 
+Iteration[6502]: Train Loss: 0.977346   Train Accuracy: 0.904514 
+\#\# Epoch[2], Train Loss: 0.209490   \&   Train Accuracy: 0.911892
+351.18757796287537
+
+    \end{Verbatim}
+
+    Attention ne pas reentrainer !!!
+
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{n}{inference\PYZus{}loader} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{utils}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{DataLoader}\PY{p}{(}\PY{n}{file\PYZus{}dataset}\PY{p}{,}
+                                                      \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{6192}\PY{p}{,} \PY{n}{shuffle}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}38}]:} \PY{k}{def} \PY{n+nf}{inference\PYZus{}bb}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{data}\PY{p}{,} \PY{n}{optimizer}\PY{p}{,}\PY{n}{mc\PYZus{}samples}\PY{p}{)}\PY{p}{:}
+             \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{(}\PY{n}{inference\PYZus{}loader}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{a}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                 \PY{k}{if} \PY{n}{a} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                     \PY{n}{inputs} \PY{o}{=} \PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                     \PY{n}{labels} \PY{o}{=} \PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                     
+             \PY{k}{if} \PY{n}{use\PYZus{}cuda}\PY{p}{:}
+                 \PY{n}{inputs}\PY{p}{,} \PY{n}{labels} \PY{o}{=} \PY{n}{inputs}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{labels}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+                         
+             \PY{k}{return} \PY{n}{optimizer}\PY{o}{.}\PY{n}{get\PYZus{}mc\PYZus{}predictions}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{forward}\PY{p}{,}\PY{n}{inputs}\PY{p}{,}\PY{n}{mc\PYZus{}samples}\PY{o}{=}\PY{n}{mc\PYZus{}samples}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{\PYZgt{}}\PY{l+m+mi}{0}\PY{p}{,}\PY{n}{labels}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}39}]:} \PY{n}{a}\PY{p}{,}\PY{n}{b}\PY{o}{=}\PY{n}{inference\PYZus{}bb}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{inference\PYZus{}loader}\PY{p}{,}\PY{n}{optimizer}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{k+kn}{import} \PY{n+nn}{time}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{predict} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,}\PY{l+m+mi}{6192}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+         \PY{n}{labz} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{,}\PY{l+m+mi}{6192}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+         \PY{n}{start} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1000}\PY{p}{)}\PY{p}{:}
+             \PY{n}{predictions}\PY{p}{,}\PY{n}{lbl} \PY{o}{=} \PY{n}{inference\PYZus{}bb}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{inference\PYZus{}loader}\PY{p}{,}\PY{n}{optimizer}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{)}
+             \PY{n}{predict}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{predictions}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{l+m+mi}{6192}\PY{p}{)}
+             \PY{n}{labz}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{lbl}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{l+m+mi}{6192}\PY{p}{)}
+         \PY{n}{end} \PY{o}{=} \PY{n}{time}\PY{o}{.}\PY{n}{time}\PY{p}{(}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{end} \PY{o}{\PYZhy{}} \PY{n}{start}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+98.40957474708557
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{n}{hist}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6192}\PY{p}{)}
+         \PY{n}{histl}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{l+m+mi}{6192}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{6192}\PY{p}{)}\PY{p}{:}
+             \PY{n}{hist}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{predict}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{n}{histl}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{labz}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{hist}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}43}]:} [<matplotlib.lines.Line2D at 0x7fec0a82cac8>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{histl}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}44}]:} [<matplotlib.lines.Line2D at 0x7fec09c8db70>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_26_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n}{a}\PY{o}{=}\PY{l+m+mi}{0}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{(}\PY{n}{inference\PYZus{}loader}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{a}\PY{o}{+}\PY{o}{=}\PY{l+m+mi}{1}
+                 \PY{n}{inputs} \PY{o}{=} \PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n}{labels} \PY{o}{=} \PY{n}{i}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{label}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{a}\PY{p}{,}\PY{n}{inputs}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+1 torch.Size([6192, 16])
+2 torch.Size([720, 16])
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{n}{inference\PYZus{}loader}\PY{o}{.}\PY{n}{dataset}\PY{o}{.}\PY{n}{data}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}46}]:} (6912, 16)
+\end{Verbatim}
+            
+    \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{k}{def} \PY{n+nf}{crit}\PY{p}{(}\PY{n}{vect}\PY{p}{,}\PY{n}{thresh}\PY{p}{)}\PY{p}{:}
+             \PY{n}{a} \PY{o}{=} \PY{n}{vect}\PY{o}{\PYZgt{}}\PY{n}{thresh}
+             \PY{n}{b} \PY{o}{=} \PY{n}{vect} \PY{o}{\PYZlt{}} \PY{p}{(}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{thresh}\PY{p}{)}
+         
+             \PY{k}{return} \PY{n}{a}\PY{o}{*}\PY{n}{b}\PY{o}{*}\PY{l+m+mf}{1.}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{crit}\PY{p}{(}\PY{n}{hist}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+m+mf}{0.20}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}48}]:} 382.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{k}{def} \PY{n+nf}{better\PYZus{}pred}\PY{p}{(}\PY{n}{labz}\PY{p}{,}\PY{n}{thresh}\PY{p}{,}\PY{n}{vect}\PY{p}{)}\PY{p}{:}
+         
+             \PY{n}{critz} \PY{o}{=} \PY{n}{crit}\PY{p}{(}\PY{n}{vect}\PY{p}{,}\PY{n}{thresh}\PY{p}{)}
+             \PY{n}{preds} \PY{o}{=} \PY{n}{vect}\PY{o}{\PYZgt{}}\PY{l+m+mf}{0.5}
+             
+             \PY{n}{correct\PYZus{}better} \PY{o}{=} \PY{l+m+mf}{0.}
+             \PY{n}{correct} \PY{o}{=} \PY{l+m+mf}{0.}
+             \PY{n}{correct}\PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{n}{labz}\PY{o}{\PYZhy{}}\PY{n}{preds}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}
+             \PY{n}{correct\PYZus{}better} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{(}\PY{p}{(}\PY{n}{labz}\PY{o}{\PYZhy{}}\PY{n}{preds}\PY{p}{)}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{critz}\PY{o}{==}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{)}
+             
+             \PY{k}{return} \PY{n}{correct}\PY{o}{/}\PY{l+m+mi}{6192}\PY{p}{,}\PY{n}{correct\PYZus{}better}\PY{o}{/}\PY{p}{(}\PY{l+m+mi}{6192}\PY{o}{\PYZhy{}}\PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{critz}\PY{p}{)}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{n}{better\PYZus{}pred}\PY{p}{(}\PY{n}{histl}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{n}{hist}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}50}]:} (0.9232881136950905, 0.9524657290368524)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}51}]:} \PY{n}{x} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mf}{0.5}\PY{p}{,}\PY{l+m+mi}{601}\PY{p}{)}
+         \PY{n}{rez} \PY{o}{=} \PY{p}{[}\PY{n}{better\PYZus{}pred}\PY{p}{(}\PY{n}{histl}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{,}\PY{n}{y}\PY{p}{,}\PY{n}{hist}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n}{x}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{x}\PY{p}{,}\PY{n}{rez}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} [<matplotlib.lines.Line2D at 0x7fec09c7a160>,
+          <matplotlib.lines.Line2D at 0x7fec09c7a2e8>]
+\end{Verbatim}
+            
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
