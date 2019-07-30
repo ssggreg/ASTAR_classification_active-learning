@@ -15,7 +15,7 @@ sns.set()
 from torch.utils.data.dataloader import DataLoader
 import time
 from sklearn.model_selection import train_test_split
-from vogn_utils import train_model_cc,train_model_bb,csvDataset,assist,ToTensor
+from vogn_utils import train_model_cc_fast,train_model_bb,csvDataset,assist,ToTensor
 
 def f (x):
     return x*(1-x)
@@ -34,21 +34,21 @@ def inference_(model, data_loader, optimizer,mc_samples):
 
 
 
-def mc_dropout_selection(depart,nb_ech,nb_ep,nb_batch,batch_size_sample,loader_batch_size,class_model,X,Y):
+def mc_dropout_selection(depart,nb_ech,nb_ep,nb_batch,batch_size_sample,loader_batch_size,class_model,X,Y,seeds):
     
-    use_cuda = torch.cuda.is_available()
-    print("Using Cuda: %s" % use_cuda)
     a = depart
+    results=[a[:]]
+    use_cuda = True
     start = time.time()
     inference_dataset = csvDataset(X,Y,transform= ToTensor())
-    inference_loader = torch.utils.data.DataLoader(inference_dataset,batch_size=6912, shuffle=False)
+    inference_loader = torch.utils.data.DataLoader(inference_dataset,batch_size=3420, shuffle=False)
                                                                                                      
     start = time.time()
                                                       
     for k in range(nb_batch):
         
         file_dataset = csvDataset(X[a],Y[a],transform= ToTensor())
-        dataset_loader = torch.utils.data.DataLoader(file_dataset,batch_size=loader_batch_size, shuffle=False)
+        dataset_loader = torch.utils.data.DataLoader(file_dataset,batch_size=np.asscalar(loader_batch_size[k]), shuffle=False)
         model = class_model
         if use_cuda:
             model = model.float().cuda()
@@ -56,27 +56,27 @@ def mc_dropout_selection(depart,nb_ech,nb_ep,nb_batch,batch_size_sample,loader_b
         optimizer = optim.Adam(model.parameters())
         model.dropout.requires_grad = False
                                                       
-        model, train_loss, train_accuracy = train_model_cc(model, [dataset_loader, dataset_loader], criterion,
-    optimizer, num_epochs=nb_ep)
+        model, train_loss, train_accuracy = train_model_cc_fast(model, [dataset_loader, dataset_loader], criterion,
+    optimizer, num_epochs=nb_ep[k])
         
-        labz=torch.zeros(nb_ech,6912).cuda()
-        predict = torch.zeros(nb_ech,6912).cuda()
+        labz=torch.zeros(nb_ech,3420).cuda()
+        predict = torch.zeros(nb_ech,3420).cuda()
         
         model.train()
         with torch.no_grad():
             for i in range(nb_ech):
                 predictions,lbl = inference_(model, inference_loader,optimizer,1)
-                predict[i] = predictions.view(6912)
-                labz[i] = lbl.view(6912)
+                predict[i] = predictions.view(3420)
+                labz[i] = lbl.view(3420)
 
-        predict_train = np.sum(predict[:,:4146].cpu().numpy(),axis=0)/nb_ech    
+        predict_train = np.sum(predict.cpu().numpy(),axis=0)/nb_ech    
         #BB =list(np.argsort(f(predict_train))[4146-batch_size:])+a
-        a = assist(np.argsort(f(predict_train)),a,batch_size_sample)
-                                                      
+        a = assist(np.argsort(f(predict_train)),a,batch_size_sample[k])
+        results.append(a[:])                                           
 
-        print(k)
+        print("batch",k,"seed",seeds)
                                                       
     end = time.time()
     print(end - start)
                                                       
-    return a
+    return results

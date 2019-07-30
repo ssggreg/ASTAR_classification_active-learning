@@ -181,7 +181,7 @@ def test_perf_py(model,optimizer,Xtr,Ytr,Xte,Yte):
     criterion = F.binary_cross_entropy_with_logits
     model, train_loss, train_accuracy = train_model_cc(model, [final_loader, final_loader], criterion,
     optimizer, num_epochs=50)
-    
+    print(Xtr.shape[0])
     model.eval()
     with torch.no_grad():
         for i in inference_loader:

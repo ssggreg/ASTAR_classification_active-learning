@@ -51,9 +51,12 @@ class VOGN(Optimizer):
 
         defaults = dict(lr=lr, beta=beta, prior_prec=prior_prec, prec_init=prec_init, num_samples=num_samples,
                         train_set_size=train_set_size)
+        
         self.train_modules = []
         self.set_train_modules(model)
+        
         super(VOGN, self).__init__(model.parameters(), defaults)
+        
         for module in self.train_modules:
             module.register_forward_hook(update_input)
 

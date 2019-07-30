@@ -1,0 +1,12 @@
+,results_mc_dropout/max_entropy_ebmal_no,results_mc_dropout/f_ebmal_no,results_mc_dropout/max_entropy_no_secondary_no,results_mc_dropout/f_no_secondary_no,results_bootstrap/f_ebmal_no,results_bootstrap/f_no_secondary_no
+0.5,1,1,1,0,0,0
+0.6,1,1,5,1,2,3
+0.7,4,4,12,6,4,10
+0.8,16,17,35,28,17,25
+0.85,30,41,81,62,34,68
+0.88,47,56,111,89,53,110
+0.9,57,71,122,116,68,124
+0.92,81,88,141,130,95,133
+0.94,121,111,154,152,120,152
+0.96,160,157,179,189,169,182
+0.98,0,0,246,233,234,215

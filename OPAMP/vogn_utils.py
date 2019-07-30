@@ -387,5 +387,49 @@ def train_model_cc_fast(model, dataloaders, criterion, optimizer, num_epochs=25)
         
         if (epoch > 1) & (train_accuracy >0.999):
                 break
-    return model, train_loss, train_accuracy              
-              
+    return model, train_loss, train_accuracy 
+
+
+def sampling_selection_fast_multi(depart,nb_ech,nb_ep,nb_batch,batch_size_sample,vogn_batch_size,class_model,X,Y,seeds,rez_):                                                
+    a = depart
+    results=[a[:]]
+    start = time.time()
+    inference_dataset = csvDataset(X,Y,transform= ToTensor())
+    inference_loader = torch.utils.data.DataLoader(inference_dataset,batch_size=3420, shuffle=False)
+                                                      
+    for k in range(nb_batch):
+        
+        file_dataset = csvDataset(X[a],Y[a],transform= ToTensor())
+        #b = reste(a)
+        #inference_dataset = csvDataset(X[b],Y[b],transform= ToTensor())
+        
+        dataset_loader = torch.utils.data.DataLoader(file_dataset,np.asscalar(vogn_batch_size[k]), shuffle=False)
+        
+        model = class_model
+        if use_cuda:
+            model = model.float().cuda()
+        criterion = F.binary_cross_entropy_with_logits
+        optimizer = VOGN(model, train_set_size=len(a), prec_init=100, num_samples=4)
+                                                      
+        model, train_loss, train_accuracy = train_model_cc_fast(model, [dataset_loader, dataset_loader], criterion,
+    optimizer, num_epochs=nb_ep[k])
+                
+        labz=torch.zeros(nb_ech,3420).cuda()
+        predict = torch.zeros(nb_ech,3420).cuda()
+        
+        model.eval()
+        with torch.no_grad():
+            for i in range(nb_ech):
+                predictions,lbl = inference_bb(model, inference_loader,optimizer,1)
+                predict[i] = predictions.view(3420)
+                labz[i] = lbl.view(3420)
+
+        predict_train = np.sum(predict.cpu().numpy(),axis=0)/nb_ech    
+        #BB =list(np.argsort(f(predict_train))[4146-batch_size:])+a
+        a = assist(np.argsort(f(predict_train)),a,batch_size_sample[k])
+        results.append(a[:])
+        print("batch",k,"seed",seeds)
+                                                      
+    end = time.time()
+    print(end - start)
+    rez_["group" + str(seeds)] = results                                                  
